@@ -1,0 +1,25 @@
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        // デフォルトレイヤー
+        default_layer {
+            bindings = <
+                &kp Q     &kp W     &kp E     &kp R     &kp T
+                &kp A     &kp S     &kp D     &kp F     &kp G
+                &kp Z     &kp X     &kp C     &kp V     &kp B
+                &kp LANG2 &kp SPACE &kp LANG1 &kp ENTER &kp TAB
+            >;
+        };
+
+        // Fnレイヤー（例: 記号や数字）
+        fn_layer {
+            bindings = <
+                &kp 1     &kp 2     &kp 3     &kp 4     &kp 5
+                &kp !     &kp @     &kp #     &kp $     &kp %
+                &kp (     &kp )     &kp [     &kp ]     &kp \
+                &trans    &trans    &trans    &trans    &trans
+            >;
+        };
+    };
+};

@@ -2,24 +2,96 @@
     keymap {
         compatible = "zmk,keymap";
 
-        // デフォルトレイヤー
+        // ---------- レイヤー0: 基本 ----------
         default_layer {
             bindings = <
+                // 左手上段 5キー
                 &kp Q     &kp W     &kp E     &kp R     &kp T
-                &kp A     &kp S     &kp D     &kp F     &kp G
-                &kp Z     &kp X     &kp C     &kp V     &kp B
-                &kp LANG2 &kp SPACE &kp LANG1 &kp ENTER &kp TAB
+                // 左手2段目 (5キー + エンコーダー)
+                &kp A     &kp S     &kp D     &kp F     &kp G     &encoder0_cw
+                // 左手3段目 6キー
+                &kp Z     &kp X     &kp C     &kp V     &kp B     &encoder0_ccw
+                // 左手親指 (3キー + レイヤーキー3つ)
+                &kp SPACE &kp LCTRL &kp LALT  &mo 1     &mo 2     &mo 3
+
+                // 右手上段 5キー
+                &kp Y     &kp U     &kp I     &kp O     &kp P
+                // 右手2段目 6キー
+                &kp H     &kp J     &kp K     &kp L     &kp SEMI
+                // 右手3段目 6キー
+                &kp N     &kp M     &kp COMMA &kp DOT   &kp SLASH &kp ENTER
+                // 右手親指 (2キー + トラックボール + 追加キー1つ)
+                &kp LANG2 &kp LANG1 &pointing &kp BSPC
             >;
         };
 
-        // Fnレイヤー（例: 記号や数字）
+        // ---------- レイヤー1: Fn ----------
         fn_layer {
             bindings = <
-                &kp 1     &kp 2     &kp 3     &kp 4     &kp 5
-                &kp !     &kp @     &kp #     &kp $     &kp %
-                &kp (     &kp )     &kp [     &kp ]     &kp \
-                &trans    &trans    &trans    &trans    &trans
+                &kp F1  &kp F2  &kp F3  &kp F4  &kp F5
+                &kp F6  &kp F7  &kp F8  &kp F9  &kp F10 &none
+                &kp F11 &kp F12 &none   &none   &none   &none
+                &none   &none   &none   &none   &none   &none
+
+                &none &none &none &none &none
+                &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none
             >;
+        };
+
+        // ---------- レイヤー2: 記号 ----------
+        sym_layer {
+            bindings = <
+                &kp EXCL &kp AT   &kp HASH &kp DLLR &kp PERCENT
+                &kp CARET &kp AMPS &kp STAR &kp LPAR &kp RPAR &none
+                &kp MINUS &kp PLUS &kp EQUAL &kp LBRACKET &kp RBRACKET &none
+                &none &none &none &none &none &none
+
+                &none &none &none &none &none
+                &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none
+            >;
+        };
+
+        // ---------- レイヤー3: スクロール ----------
+        scroll_layer {
+            bindings = <
+                &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none &none &none
+
+                &none &none &none &none &none
+                &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none
+            >;
+        };
+    };
+};
+
+// ---------- エンコーダー ----------
+&encoder0 {
+    compatible = "zmk,behavior-encoder";
+    label = "Scroll Encoder";
+    bindings = <&mscroll VERT &mscroll VERT>;
+};
+
+// ---------- トラックボール ----------
+&pointing_device {
+    compatible = "zmk,pointing-device";
+    mouse-sensitivity = <8>;
+};
+
+// ---------- スクロールモード (レイヤー3で有効) ----------
+/ {
+    behaviors {
+        scroll_mode: scroll_mode {
+            compatible = "zmk,behavior-sensor-transform";
+            label = "Scroll Mode";
+            transform = <SCROLL>;
         };
     };
 };

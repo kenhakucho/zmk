@@ -22,11 +22,11 @@ jobs:
         run: |
           pwd
           find . -name config -type d
-          find . -name west.yml
-          ls -l ./zmk/app/boards/shields/
-          find . -name zodiark_left*
+          #find . -name west.yml
+          #ls -l ./zmk/app/boards/shields/
+          #find . -name zodiark_left*
           #ls -l /home/runner/work/zmk/zmk/zmk/config/
-          cd ./zmk
+          #cd ./zmk
           #cp -rp config/boards/* ./app/boards/
           west init -l config
           west update

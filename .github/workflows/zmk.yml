@@ -15,7 +15,7 @@ jobs:
       - name: Checkout user config
         uses: actions/checkout@v4
         with:
-          path: zmk/config
+          path: zmk
 
       - name: Install toolchain
         run: |
@@ -26,8 +26,8 @@ jobs:
       - name: Initialize and update workspace
         run: |
           pwd
-          find . -name config -type d
-          #find . -name west.yml
+          #find . -name config -type d
+          find . -name west.yml
           #ls -l ./zmk/app/boards/shields/
           #find . -name zodiark_left*
           #ls -l /home/runner/work/zmk/zmk/zmk/config/

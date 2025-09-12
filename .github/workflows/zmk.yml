@@ -6,11 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout user config
+      - name: Checkout zmk repo
         uses: actions/checkout@v4
         with:
           repository: zmkfirmware/zmk
           path: zmk
+
+      - name: Checkout user config
+        uses: actions/checkout@v4
+        with:
+          path: zmk/config
 
       - name: Install toolchain
         run: |

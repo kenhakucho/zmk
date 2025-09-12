@@ -7,17 +7,10 @@ on:
   pull_request:
 
 jobs:
-  build-roba-left:
-    name: Build roba left
+  build:
+    name: Build roba firmware
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
-      board: nice_nano_v2
-      shield: roba_left
-
-  build-roba-right:
-    name: Build roba right
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      board: nice_nano_v2
-      shield: roba_right
+      boards: nice_nano_v2 nice_nano_v2
+      shields: roba_left roba_right
 

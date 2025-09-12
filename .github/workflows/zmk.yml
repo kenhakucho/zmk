@@ -9,7 +9,7 @@ jobs:
       - name: Checkout user config
         uses: actions/checkout@v4
         with:
-          path: zmk/config
+          path: zmk
 
       - name: Install toolchain
         run: |
@@ -23,7 +23,7 @@ jobs:
           find . -name config -type d
           find . -name west.yml
           ls -l /home/runner/work/zmk/zmk/zmk/config/
-          cd ./zmk/config
+          cd ./zmk
           west init -l config
           west update
 

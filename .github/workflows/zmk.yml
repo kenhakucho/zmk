@@ -42,4 +42,3 @@ jobs:
           path: |
             zmk/build/zephyr/zmk.uf2
             zmk/build_roba_right/zephyr/zmk.uf2
-

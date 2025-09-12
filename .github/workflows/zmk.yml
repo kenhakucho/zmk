@@ -22,10 +22,10 @@ jobs:
           pwd
           find . -name config -type d
           find . -name west.yml
-          find . -name shields -type d
+          ls -l ./zmk/app/boards/shields/
           ls -l /home/runner/work/zmk/zmk/zmk/config/
           cd ./zmk
-          cp -rp config/* ./docs/docs/config/
+          cp -rp config/* ./app/
           west init -l config
           west update
 

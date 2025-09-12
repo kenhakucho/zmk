@@ -27,7 +27,7 @@ jobs:
           find . -name zodiark_left*
           #ls -l /home/runner/work/zmk/zmk/zmk/config/
           cd ./zmk
-          cp -rp config/boards/* ./app/boards/
+          #cp -rp config/boards/* ./app/boards/
           west init -l config
           west update
 

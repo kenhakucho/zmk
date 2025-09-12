@@ -6,12 +6,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout ZMK
-        uses: actions/checkout@v4
-        with:
-          repository: zmkfirmware/zmk
-          path: zmk
-
       - name: Checkout user config
         uses: actions/checkout@v4
         with:
@@ -22,17 +16,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends git-lfs python3-pip
           pip3 install west
-        working-directory: zmk
-
-      - name: Copy config files
-        run: cp -r ../config/* config/
-        working-directory: zmk
 
       - name: Initialize and update workspace
         run: |
           west init -l config
           west update
-        working-directory: zmk
 
       - name: Build left firmware
         run: west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left

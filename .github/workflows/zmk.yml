@@ -13,19 +13,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Docker login
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Build and upload artifacts
         run: |
-          docker run --rm -v "${{ github.workspace }}:/workspace" ghcr.io/zmkfirmware/zmk-build-arm:latest /bin/bash -c "west init -l config && west update && west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left && west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right"
+          docker run \
+            --rm \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -v "${{ github.workspace }}:/workspace" \
+            ghcr.io/zmkfirmware/zmk-build-arm:latest \
+            /bin/bash -c "west init -l config && west update && west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left && west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right"
       
       - name: Archive artifacts
         uses: actions/upload-artifact@v4

@@ -12,7 +12,10 @@ jobs:
     name: Build keyboard firmware
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/zmkfirmware/zmk-build-arm:latest # バージョンをlatestに変更
+      image: ghcr.io/zmkfirmware/zmk-build-arm:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

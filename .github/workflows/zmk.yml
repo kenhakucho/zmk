@@ -40,11 +40,11 @@ jobs:
 
       - name: Build left firmware
         run: west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
-        working-directory: zmk
+        #working-directory: zmk
 
       - name: Build right firmware
         run: west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right
-        working-directory: zmk
+        #working-directory: zmk
 
       - name: Archive build artifacts
         uses: actions/upload-artifact@v4

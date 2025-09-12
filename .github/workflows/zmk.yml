@@ -9,7 +9,7 @@ jobs:
       - name: Checkout user config
         uses: actions/checkout@v4
         with:
-          path: config
+          path: zmk/config
 
       - name: Install toolchain
         run: |

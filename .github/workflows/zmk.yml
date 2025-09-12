@@ -1,47 +1,52 @@
-name: Build ZMK Firmware
+name: ZMK Firmware Build
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    name: Build ZMK
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout ZMK repository
+      - name: Checkout ZMK
         uses: actions/checkout@v4
         with:
           repository: zmkfirmware/zmk
-          ref: main
           path: zmk
-      
-      - name: Checkout config repository
+
+      - name: Checkout user config
         uses: actions/checkout@v4
         with:
           path: config
 
-      - name: Install dependencies
+      - name: Install toolchain
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip
+          sudo apt-get install -y --no-install-recommends git-lfs python3-pip
           pip3 install west
-          
-      - name: Build
+        working-directory: zmk
+
+      - name: Copy config files
+        run: cp -r ../config/* config/
+        working-directory: zmk
+
+      - name: Initialize and update workspace
         run: |
-          ls -l /home/runner/work/zmk/zmk/config/
           west init -l config
           west update
-          west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
-          west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right
-          
-      - name: Archive artifacts
+        working-directory: zmk
+
+      - name: Build left firmware
+        run: west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
+        working-directory: zmk
+
+      - name: Build right firmware
+        run: west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right
+        working-directory: zmk
+
+      - name: Archive build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
-          path: zmk/build/zephyr/zmk.uf2
+          name: roba-firmware
+          path: |
+            zmk/build/zephyr/zmk.uf2
+            zmk/build_roba_right/zephyr/zmk.uf2
 

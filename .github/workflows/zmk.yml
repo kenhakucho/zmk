@@ -22,7 +22,7 @@ jobs:
             --rm \
             -v ${{ github.workspace }}:/workspace \
             --workdir /workspace \
-            ghcr.io/zmkfirmware/zmk-build-arm:latest \
+            zmkfirmware/zmk-build-arm:2.7 \
             /bin/bash -c " \
               west init -l config && \
               west update && \

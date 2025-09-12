@@ -1,0 +1,110 @@
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        // ---------- レイヤー0: 基本 ----------
+        default_layer {
+            bindings = <
+                // 左手上段 5キー
+                &kp Q     &kp W     &kp E     &kp R     &kp T
+                // 左手2段目 (5キー + エンコーダー)
+                &kp A     &kp S     &kp D     &kp F     &kp G     &encoder0_cw
+                // 左手3段目 6キー
+                &kp Z     &kp X     &kp C     &kp V     &kp B     &encoder0_ccw
+                // 左手親指 (3キー + レイヤーキー3つ)
+                &kp SPACE &kp LCTRL &kp LALT  &mo 1     &mo 2     &mo 3
+
+                // 右手上段 5キー
+                &kp Y     &kp U     &kp I     &kp O     &kp P
+                // 右手2段目 6キー
+                &kp H     &kp J     &kp K     &kp L     &kp SEMI
+                // 右手3段目 6キー
+                &kp N     &kp M     &kp COMMA &kp DOT   &kp SLASH &kp ENTER
+                // 右手親指 (2キー + トラックボール + 追加キー1つ)
+                &kp LANG2 &kp LANG1 &pointing &kp BSPC
+            >;
+        };
+
+        // ---------- レイヤー1: Fn ----------
+        fn_layer {
+            bindings = <
+                // 左手
+                &kp ESC   &kp F2    &kp F3    &kp F4    &kp F5
+                &kp F6    &kp F7    &kp F8    &kp F9    &kp F10 &none
+                &kp F11   &kp F12   &none     &none     &none   &none
+                &none     &none     &none     &none     &none   &none
+
+                // 右手1列目 (-, ~, |, @, [)
+                &kp MINUS &kp TILDE &kp PIPE  &kp AT    &kp LBKT
+                // 右手2列目 (PgUp, Home, End, ;, :, ])
+                &kp PG_UP &kp HOME  &kp END   &kp SEMI  &kp COLON &kp RBKT
+                // 右手3列目 (PgDn, Insert, ,, ., /, \)
+                &kp PG_DN &kp INS   &kp COMMA &kp DOT   &kp SLASH &kp BSLH
+                // 右手親指は特に指定なし
+                &none &none &none &none
+            >;
+        };
+
+        // ---------- レイヤー2: 数字・記号・マウス ----------
+        sym_layer {
+            bindings = <
+                // 左手: 1列目 - 7 8 9 +
+                &kp MINUS &kp N7   &kp N8   &kp N9   &kp PLUS
+                // 左手: 2列目 tab 4 5 6 *
+                &kp TAB   &kp N4   &kp N5   &kp N6   &kp STAR  &none
+                // 左手: 3列目 shift 1 2 3 -
+                &kp LSHIFT &kp N1  &kp N2   &kp N3   &kp MINUS &none
+                // 左手親指: 1の下に0
+                &kp N0 &none &none &none &none &none
+
+                // 右手: 1列目 [,],{,},\
+                &kp LBKT &kp RBKT &kp LBRC &kp RBRC &kp BSLH
+                // 右手: 2列目 mouse forward, PgUp, LeftClick, ↑, RightClick, ;
+                &kp MS_FWD &kp PG_UP &kp LCLK &kp UP  &kp RCLK &kp SEMI
+                // 右手: 3列目 mouse back, PgDn, ←, ↓, →, ?
+                &kp MS_BACK &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &kp QUESTION
+                // 右手親指: /
+                &kp SLASH &none &none &none
+            >;
+        };
+
+        // ---------- レイヤー3: スクロール ----------
+        scroll_layer {
+            bindings = <
+                &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none &none &none
+
+                &none &none &none &none &none
+                &none &none &none &none &none
+                &none &none &none &none &none &none
+                &none &none &none &none
+            >;
+        };
+    };
+};
+
+// ---------- エンコーダー ----------
+&encoder0 {
+    compatible = "zmk,behavior-encoder";
+    label = "Scroll Encoder";
+    bindings = <&mscroll VERT &mscroll VERT>;
+};
+
+// ---------- トラックボール ----------
+&pointing_device {
+    compatible = "zmk,pointing-device";
+    mouse-sensitivity = <8>;
+};
+
+// ---------- スクロールモード (レイヤー3で有効) ----------
+/ {
+    behaviors {
+        scroll_mode: scroll_mode {
+            compatible = "zmk,behavior-sensor-transform";
+            label = "Scroll Mode";
+            transform = <SCROLL>;
+        };
+    };
+};

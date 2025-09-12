@@ -11,6 +11,11 @@ jobs:
     name: Build roba firmware
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
-      boards: nice_nano_v2 nice_nano_v2
-      shields: roba_left roba_right
+      # ビルドしたいボードとシールドをここに記述します
+      # 例：boards-and-shields: nice_nano_v2 roba_left nice_nano_v2 roba_right
+      # 左手用と右手用を一つの行に記述できます。
+      boards-and-shields: >
+        nice_nano_v2 roba_left
+        nice_nano_v2 roba_right
+
 

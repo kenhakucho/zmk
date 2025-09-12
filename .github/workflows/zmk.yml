@@ -24,6 +24,7 @@ jobs:
           find . -name west.yml
           ls -l /home/runner/work/zmk/zmk/zmk/config/
           cd ./zmk
+          cp -rp config/* ./docs/docs/config/
           west init -l config
           west update
 

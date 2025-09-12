@@ -20,7 +20,8 @@ jobs:
       - name: Initialize and update workspace
         run: |
           find . -name config -type d
-          find . -name west.yml
+          find . -name west.
+          ls -l /home/runner/work/zmk/zmk/config/
           west init -l config
           west update
 

@@ -34,9 +34,8 @@ jobs:
       - name: Build
         run: |
           cd zmk
-          ls -l
-          ls -l ../
-          west init -l ../../../config
+          ls -l /home/runner/work/
+          west init -l config
           west update
           west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
           west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right

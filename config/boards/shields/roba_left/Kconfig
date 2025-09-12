@@ -1,0 +1,4 @@
+# roba_left/Kconfig
+config SHIELD_ROBA_LEFT
+    bool "roBa left"
+    select ZMK_KEYMAP

@@ -12,13 +12,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build (left)
-        uses: zmkfirmware/zmk-build@v1
+　　　　  uses: zmkfirmware/zmk-build@main
         with:
           board: nice_nano_v2
           shield: roba_left
 
       - name: Build (right)
-        uses: zmkfirmware/zmk-build@v1
+        uses: zmkfirmware/zmk-build@main
         with:
           board: nice_nano_v2
           shield: roba_right

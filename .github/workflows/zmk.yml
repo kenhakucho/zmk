@@ -17,32 +17,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: zmkfirmware/zmk
+          ref: main
           path: zmk
-          
+      
       - name: Checkout config repository
         uses: actions/checkout@v4
         with:
-          path: zmk-config
+          path: config
 
-      - name: Build and upload artifacts
+      - name: Build
         run: |
-          docker run \
-            --rm \
-            -v ${{ github.workspace }}/zmk:/zmk \
-            -v ${{ github.workspace }}/zmk-config:/zmk-config \
-            ghcr.io/zmkfirmware/zmk-build-arm:2.7 \
-            /bin/bash -c " \
-              cd /zmk && \
-              west init -l /zmk-config/config && \
-              west update && \
-              west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left && \
-              west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right && \
-              cp build/zephyr/zmk.uf2 /zmk-config/ \
-            "
-      
+          cd zmk
+          west init -l ../config
+          west update
+          west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
+          west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right
+          
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: zmk-config/zmk.uf2
+          path: zmk/build/zephyr/zmk.uf2
 

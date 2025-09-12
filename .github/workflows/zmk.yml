@@ -14,8 +14,6 @@ jobs:
 
       - name: Checkout user config
         uses: actions/checkout@v4
-        with:
-          path: zmk
 
       - name: Install toolchain
         run: |

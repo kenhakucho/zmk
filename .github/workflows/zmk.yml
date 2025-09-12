@@ -36,6 +36,10 @@ jobs:
           west init -l config
           west update
 
+      - name: List shields
+        run: |
+          ls -R config/boards/shields
+
       - name: Build left firmware
         run: west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
         working-directory: zmk

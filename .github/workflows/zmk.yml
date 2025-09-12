@@ -25,7 +25,7 @@ jobs:
           find . -name west.yml
           ls -l ./zmk/app/boards/shields/
           find . -name zodiark_left*
-          ls -l /home/runner/work/zmk/zmk/zmk/config/
+          #ls -l /home/runner/work/zmk/zmk/zmk/config/
           cd ./zmk
           cp -rp config/boards/* ./app/boards/
           west init -l config

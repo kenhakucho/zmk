@@ -14,17 +14,17 @@ jobs:
         with:
           fetch-depth: 0
       - name: West init
-        uses: zmkfirmware/zmk-build-action@main
+        uses: zmkfirmware/zmk-action-build@main
         with:
           args: >
             init -l config
       - name: Build (roba)
-        uses: zmkfirmware/zmk-build-action@main
+        uses: zmkfirmware/zmk-action-build@main
         with:
           args: >
             build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
       - name: Build (roba right)
-        uses: zmkfirmware/zmk-build-action@main
+        uses: zmkfirmware/zmk-action-build@main
         with:
           args: >
             build -s app -b nice_nano_v2 -- -DSHIELD=roba_right

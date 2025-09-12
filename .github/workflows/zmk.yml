@@ -1,0 +1,30 @@
+name: Build ZMK firmware
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: West init
+        uses: zmkfirmware/zmk-docker-west-action@v1
+        with:
+          args: >
+            init -l config
+      - name: Build (roba)
+        uses: zmkfirmware/zmk-docker-west-action@v1
+        with:
+          args: >
+            build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
+      - name: Build (roba right)
+        uses: zmkfirmware/zmk-docker-west-action@v1
+        with:
+          args: >
+            build -s app -b nice_nano_v2 -- -DSHIELD=roba_right

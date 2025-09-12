@@ -33,7 +33,7 @@ jobs:
           
       - name: Build
         run: |
-          ls -l /home/runner/work/zmk/zmk/
+          ls -l /home/runner/work/zmk/zmk/config/
           west init -l config
           west update
           west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left

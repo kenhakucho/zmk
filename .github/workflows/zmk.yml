@@ -1,21 +1,44 @@
-name: Build ZMK firmware
+name: ZMK Firmware Build
 
 on:
   push:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build roba firmware
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      # ビルドしたいボードとシールドをここに記述します
-      # 例：boards-and-shields: nice_nano_v2 roba_left nice_nano_v2 roba_right
-      # 左手用と右手用を一つの行に記述できます。
-      boards-and-shields: >
-        nice_nano_v2 roba_left
-        nice_nano_v2 roba_right
+    name: Build keyboard firmware
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/zmkfirmware/zmk-build-arm:2.7
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
+      - name: Cache west modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            modules/lib/zmk/
+            modules/hal/stm32/
+          key: ${{ runner.os }}-west-modules-${{ hashFiles('west.yml') }}
+
+      - name: Initialize workspace
+        run: west init -l config
+
+      - name: Update modules
+        run: west update
+
+      - name: Build firmware
+        run: |
+          west build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
+          west build -s app -b nice_nano_v2 -- -DSHIELD=roba_right
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: firmware
+          path: build/zephyr/zmk.uf2
 

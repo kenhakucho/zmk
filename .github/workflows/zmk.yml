@@ -9,6 +9,7 @@ jobs:
       - name: Checkout user config
         uses: actions/checkout@v4
         with:
+          repository: zmkfirmware/zmk
           path: zmk
 
       - name: Install toolchain

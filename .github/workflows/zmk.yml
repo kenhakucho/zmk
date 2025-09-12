@@ -24,7 +24,7 @@ jobs:
           args: >
             build -s app -b nice_nano_v2 -- -DSHIELD=roba_left
       - name: Build (roba right)
-        uses: zmkfirmware/zmk-docker-west-action@v1
+        uses: zmkfirmware/zmk-build@main
         with:
           args: >
             build -s app -b nice_nano_v2 -- -DSHIELD=roba_right
